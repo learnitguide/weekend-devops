@@ -1,0 +1,9 @@
+---
+- hosts: master
+  become: yes
+  tasks:
+  - name: install packages
+    yum:
+     name: httpd
+  - name: dummy
+    shell: ip a

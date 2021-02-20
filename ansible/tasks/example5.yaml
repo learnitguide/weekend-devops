@@ -1,0 +1,13 @@
+---
+- hosts: target
+  gather_facts: no
+  become: yes
+  tasks:
+          #  - name: Createing a file
+          #shell: touch {{ filename }}
+  - name: print some output
+    debug: msg="{{ ansible_all_ipv4_addresses }}"
+  - name: print some output
+    debug: msg="{{ ansible_distribution }}"
+  - name: print some output
+    debug: msg="{{ ansible_cmdline.BOOT_IMAGE}}"

@@ -1,0 +1,22 @@
+---
+- hosts: target
+  vars:
+   username: selva
+   http_port: 80
+   filename: alex
+   service: httpd
+   config: /etc/httpd/cong/httpd.conf
+   pkg_name:
+    - httpd
+    - git
+    - tomcat
+
+  become: yes
+  tasks:
+  - name: Createing a file
+    shell: touch {{ filename }}
+  - name: print some output
+    debug: msg="Its my trail {{ filename }}"
+  - name: install
+    yum:
+     name: {{ pkg_name }}

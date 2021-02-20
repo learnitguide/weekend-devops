@@ -1,0 +1,8 @@
+---
+- hosts: target
+  become: yes
+  tasks:
+  - name: Createing a file
+    shell: touch testfile
+  - name: print some output
+    debug: msg="Its my trail tasks"

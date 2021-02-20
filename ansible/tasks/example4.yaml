@@ -1,0 +1,10 @@
+---
+- hosts: target
+  vars_files:
+   - myvariables.yaml
+  become: yes
+  tasks:
+  - name: Createing a file
+    shell: touch {{ filename }}
+  - name: print some output
+    debug: msg="Its my trail {{ config }}"

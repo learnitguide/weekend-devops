@@ -1,0 +1,5 @@
+username: selva
+http_port: 80
+filename: bikes
+service: httpd
+config: /etc/httpd/cong/httpd.conf
