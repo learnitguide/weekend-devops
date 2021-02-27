@@ -1,0 +1,27 @@
+---
+- hosts: web
+  become: yes
+  vars:
+  - req_pkg: net-tools
+  - pkg: apache2
+  - service: apache2
+  - config: /etc/apache2/ports.conf
+  - port: 8080
+  tasks:
+  - name: Install dependencies packages
+    apt:
+     name: "{{ req_pkg }}"
+  - name: Install apache2
+    apt:
+     name: "{{ pkg }}"
+  - name: Changing default port to 8080
+    lineinfile:
+     path: "{{ config }}"
+     regexp: '^Listen '
+     insertafter: '^#Listen '
+     line: "Listen {{ port }}"
+  - name: Copy web codes
+    copy:
+     src: /tmp/index.html
+     dest: /var/www/html/index.html
+

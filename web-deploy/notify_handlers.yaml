@@ -1,0 +1,47 @@
+---
+- hosts: centos
+  tags: centos
+  become: yes
+  vars:
+  - req_pkg: net-tools
+  - pkg: httpd
+  - service: httpd
+  - config: /etc/httpd/conf/httpd.conf
+  - port: 8080
+  tasks:
+  - name: Install dependencies packages
+    yum:
+     name: "{{ req_pkg }}"
+    tags: install
+  - name: Install httpd
+    yum:
+     name: "{{ pkg }}"
+    tags: install
+  - name: Changing default port to 8080
+    lineinfile:
+     path: "{{ config }}"
+     regexp: '^Listen '
+     insertafter: '^#Listen '
+     line: "Listen {{ port }}"
+    tags: configuration
+  - name: Copy web codes
+    copy:
+     src: /tmp/index.html
+     dest: /var/www/html/index.html
+    tags: deployment
+    notify:
+    - httpd restart
+
+  - name: Service starts and enabled
+    service:
+     name: "{{ service }}"
+     state: started
+     enabled: yes
+    tags: service
+
+  handlers:
+  - name: httpd restart
+    service:
+     name: "{{ service }}"
+     state: restarted
+
