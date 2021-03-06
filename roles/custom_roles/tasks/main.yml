@@ -1,0 +1,4 @@
+---
+# tasks file for custom_roles
+- name: Install Deb
+  import_tasks: install_deb.yml

@@ -1,0 +1,6 @@
+---
+- name: Install Java package Debian {{ java_pkg }}
+  apt:
+    name: "{{ java_pkg }}"
+    state: present
+    force_apt_get: true
