@@ -1,0 +1,4 @@
+---
+# defaults file for custom_roles
+#
+java_pkg: default-jdk
