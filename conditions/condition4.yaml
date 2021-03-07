@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+  - name: Test Tasks
+    shell: echo "Selva"
+    register: output
+
+  - name: Display my output
+    debug:
+     var: output.stdout_lines
+
+
+  - name: create file
+    file:
+      path: /tmp/newfile
+      state: touch
+    when: output.stdout == "Selva"
+

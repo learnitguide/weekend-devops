@@ -1,0 +1,21 @@
+---
+- hosts: all
+  tasks:
+  - name: disk usage
+    shell: df -h /home
+    register: disk_output
+
+  - name: Display my output
+    debug:
+     var: disk_output.stdout_lines
+
+  - name: install package on ubuntu
+    apt:
+     name: apache2
+    when: ansible_os_family == "Debian"
+
+  - name: install package on centos
+    yum:
+     name: httpd
+    when: ansible_os_family == "RedHat"
+

@@ -1,0 +1,13 @@
+---
+- hosts: web1-ubuntu
+  become: yes
+  tasks:
+  - name: creating users
+    user:
+     name: "{{ item }}"
+    with_items:
+    - selva
+    - kumar
+    - madhav
+    - ashok
+    - venkat

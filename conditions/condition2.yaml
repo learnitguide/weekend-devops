@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: disk usage
+    shell: df -h /home
+    when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+    register: disk_output
+
+  - name: Display my output
+    debug:
+     var: disk_output.stdout_lines
+
+  - name: install package on ubuntu
+    apt:
+     name: apache2
+    when: ansible_os_family == "Debian" and ansible_distribution_version == "20.04"
+
+  - name: install package on centos
+    yum:
+     name: httpd
+    when: ansible_os_family == "RedHat"
+

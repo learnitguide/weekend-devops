@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: check file exists
+    shell: ls /tmp/tomcat.log
+    register: fstatus
+    ignore_errors: True
+
+  - name: create file
+    file:
+      path: /tmp/tomcat.log
+      state: touch
+    when: fstatus is failed
+

@@ -1,0 +1,25 @@
+---
+- hosts: all
+  tasks:
+  - name: random tasks
+    shell: df -h /home
+    register: myresult
+
+  - name: create a file
+    shell: touch /tmp/dummy
+
+  - name: display my output
+    debug:
+     var: myresult.stdout_lines
+
+  - name: Final Messages
+    debug:
+     msg: "This is my final tasks {{ ansible_cmdline.BOOT_IMAGE }}"
+
+  - name: display my output
+    debug:
+     var: ansible_cmdline.BOOT_IMAGE
+
+
+
+
